@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "./Header";
+import List from "./List";
 import "./styles.css";
 
 export default class App extends React.Component {
-  state = {};
+  state = { showDeckList: false };
 
   componentDidMount() {
     // Simple GET request using fetch
@@ -13,14 +14,9 @@ export default class App extends React.Component {
   }
 
   getData = () => {
-    // Simple GET request using fetch
-    // fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
-    //   .then(response => response.json())
-    //   .then(data => this.setState({ new: data }));
-
     fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
       .then(response => response.json())
-      .then(data => this.setState({ data: data }));
+      .then(data => this.setState({ data: data, showDeckList: true }));
   };
 
   render() {
@@ -36,6 +32,16 @@ export default class App extends React.Component {
         <button style={buttonStyle} type="button" onClick={this.getData}>
           Deal Hand!
         </button>
+
+        {/* This is a conditional render */}
+        {/* Referred to here: https://stackoverflow.com/questions/45303908/conditional-rendering-is-not-working-as-expected-in-reactjs */}
+        {this.state.showDeckList ? (
+          <div>
+            <List data={this.state.data} />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
@@ -74,12 +80,3 @@ var buttonStyle = {
   fontSize: "16px",
   borderRadius: "10px" // this rounds the edges
 };
-
-// Don't need this but keep as reference to loop over list
-const List = props =>
-  props.data.map(item => (
-    <div key={item.objectID}>
-      <span>{item.author}</span>
-      <span>{item.points}</span>
-    </div>
-  ));
