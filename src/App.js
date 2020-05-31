@@ -33,7 +33,7 @@ export default class App extends React.Component {
         <div style={jsonStyle}>
           <p>Deck: {JSON.stringify(this.state.data)}</p>
         </div>
-        <button type="button" onClick={this.getData}>
+        <button style={buttonStyle} type="button" onClick={this.getData}>
           Deal Hand!
         </button>
       </div>
@@ -41,6 +41,7 @@ export default class App extends React.Component {
   }
 }
 
+// CSS style objects
 var horizontalRuleStyle = {
   width: "100%",
   maxWidth: "700px"
@@ -62,15 +63,23 @@ var jsonStyle = {
   borderRadius: "10px" // this rounds the edges
 };
 
+var buttonStyle = {
+  backgroundColor: "#a33833",
+  border: "none",
+  color: "white",
+  padding: "15px 32px",
+  textAlign: "center",
+  textDecoration: "none",
+  display: "inline-block",
+  fontSize: "16px",
+  borderRadius: "10px" // this rounds the edges
+};
+
 // Don't need this but keep as reference to loop over list
 const List = props =>
-  props.list.map(item => (
+  props.data.map(item => (
     <div key={item.objectID}>
-      <span>
-        <a href={item.url}>{item.title}</a>
-      </span>
       <span>{item.author}</span>
-      <span>{item.num_comments}</span>
       <span>{item.points}</span>
     </div>
   ));
