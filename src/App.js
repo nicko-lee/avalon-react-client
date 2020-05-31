@@ -50,7 +50,6 @@ var horizontalRuleStyle = {
 // maxWidth kept stuffing things up but when u added marginLeft and right to auto it did the trick to centre the div
 // and keep its max width under control: https://stackoverflow.com/questions/17993471/css-wont-center-div-with-max-width
 var jsonStyle = {
-  width: "100%",
   backgroundColor: "#BFBFBF",
   padding: "10px",
   maxWidth: "700px",
