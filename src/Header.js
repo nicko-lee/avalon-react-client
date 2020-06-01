@@ -14,7 +14,7 @@ function Header() {
   // Import result is the URL of your image
   return (
     <div>
-      <img style={imageStyle} src={Avalon1} />
+      <img style={imageStyle} src={Avalon1} alt="avalon logo" />
     </div>
   );
 }

@@ -1,17 +1,20 @@
 import React from "react";
 import Header from "./Header";
 import List from "./List";
+import JustDealHand from "./JustDealHand";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  BrowserRouter
+} from "react-router-dom";
 import "./styles.css";
 
 export default class App extends React.Component {
   state = { showDeckList: false };
 
-  componentDidMount() {
-    // Simple GET request using fetch
-    // fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
-    //   .then(response => response.json())
-    //   .then(data => this.setState({ data: data }));
-  }
+  componentDidMount() {}
 
   getData = () => {
     fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
@@ -21,28 +24,45 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Header />
-        <h1>Welcome to Avalon ⚔️</h1>
-        <h2>Click to start new game 👇🏻</h2>
-        <hr style={horizontalRuleStyle} />
-        <div style={jsonStyle}>
-          <p>Deck: {JSON.stringify(this.state.data)}</p>
-        </div>
-        <button style={buttonStyle} type="button" onClick={this.getData}>
-          Deal Hand!
-        </button>
-
-        {/* This is a conditional render */}
-        {/* Referred to here: https://stackoverflow.com/questions/45303908/conditional-rendering-is-not-working-as-expected-in-reactjs */}
-        {this.state.showDeckList ? (
-          <div>
-            <List data={this.state.data} />
+      <Router>
+        <div className="App">
+          <Header />
+          <h1>Welcome to Avalon ⚔️</h1>
+          <h2>Select game option 👇🏻</h2>
+          <div style={navButtonContainerStyle}>
+            <div style={navButtonContainerFlexChildStyle}>
+              <Link to="/justDeal" style={navButtonStyle}>
+                Just Deal Me a Hand
+              </Link>
+            </div>
+            <div style={navButtonContainerFlexChildStyle}>
+              <Link to="/dealAndDistribute" style={navButtonStyle}>
+                Deal and Distribute
+              </Link>
+            </div>
           </div>
-        ) : (
-          <div />
-        )}
-      </div>
+          <div>
+            <hr style={horizontalRuleStyle} />
+          </div>
+
+          {/* The section below changes dynamically based on react-router routes */}
+          <Switch>
+            <Route exact path="/justDeal">
+              <JustDealHand />
+
+              {/* This is a conditional render */}
+              {/* Referred to here: https://stackoverflow.com/questions/45303908/conditional-rendering-is-not-working-as-expected-in-reactjs */}
+              {this.state.showDeckList ? (
+                <div>
+                  <List data={this.state.data} />
+                </div>
+              ) : (
+                <div />
+              )}
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
@@ -53,30 +73,28 @@ var horizontalRuleStyle = {
   maxWidth: "700px"
 };
 
-// wordWrap makes the JSON text responsive on mobile: https://stackoverflow.com/questions/7641195/how-to-limit-div-width
-// maxWidth kept stuffing things up but when u added marginLeft and right to auto it did the trick to centre the div
-// and keep its max width under control: https://stackoverflow.com/questions/17993471/css-wont-center-div-with-max-width
-var jsonStyle = {
-  backgroundColor: "#BFBFBF",
-  padding: "10px",
-  maxWidth: "700px",
-  marginLeft: "auto",
-  marginRight: "auto",
-  marginBottom: "15px", // adds some space to next element below
-  marginTop: "15px",
-  textAlign: "center",
-  wordWrap: "break-word",
-  borderRadius: "10px" // this rounds the edges
+var navButtonStyle = {
+  textDecoration: "none", // removes the lines under a hyperlink
+  backgroundColor: "#a33833",
+  color: "white", // changes text color
+  padding: "15px 32px",
+  border: "none",
+  borderRadius: "10px", // this rounds the edges
+  opacity: "0.8"
 };
 
-var buttonStyle = {
-  backgroundColor: "#a33833",
-  border: "none",
-  color: "white",
-  padding: "15px 32px",
-  textAlign: "center",
-  textDecoration: "none",
-  display: "inline-block",
-  fontSize: "16px",
-  borderRadius: "10px" // this rounds the edges
+// these styles are to use flexbox to position two divs side by side
+// https://coder-coder.com/display-divs-side-by-side/
+var navButtonContainerStyle = {
+  // backgroundColor: "yellow",
+  display: "flex",
+  margin: "0 auto", // this magically centres a div in the centre by itself: http://jsfiddle.net/nacMP/24/
+  marginBottom: "50px",
+  marginTop: "50px",
+  width: "100%",
+  maxWidth: "700px"
+};
+
+var navButtonContainerFlexChildStyle = {
+  flex: 1
 };
