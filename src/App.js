@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import List from "./List";
 import JustDealHand from "./JustDealHand";
+import ConfigureGame from "./ConfigureGame";
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,7 +32,7 @@ export default class App extends React.Component {
           <h2>Select game option 👇🏻</h2>
           <div style={navButtonContainerStyle} class="navContainer">
             <div style={navButtonContainerFlexChildStyle}>
-              <Link to="/justDeal" style={navButtonStyle}>
+              <Link to="/configureGame" style={navButtonStyle}>
                 Just Deal Me a Hand
               </Link>
             </div>
@@ -62,6 +63,9 @@ export default class App extends React.Component {
               ) : (
                 <div />
               )}
+            </Route>
+            <Route exact path="/configureGame">
+              <ConfigureGame />
             </Route>
           </Switch>
         </div>
