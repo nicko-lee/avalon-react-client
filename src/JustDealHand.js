@@ -1,4 +1,5 @@
 import React from "react";
+import List from "./List";
 
 class JustDealHand extends React.Component {
   state = {};
@@ -13,7 +14,15 @@ class JustDealHand extends React.Component {
     return (
       <div>
         <div style={jsonStyle}>
+          {this.state.data && <h3>JSON</h3>}
           <p>Deck: {JSON.stringify(this.state.data)}</p>
+          {/* this is a special conditional render that does nothing if condition is not met
+              https://www.robinwieruch.de/conditional-rendering-react 
+             it basically checks if this.state.data is null (is there any data). And
+             only if it is not null will it try to render <List /> and pass down the data
+            This provides an error if null is passed down and <List /> doesn't know what to do
+            with it. Else it will do nothing */}
+          {this.state.data && <List data={this.state.data} />}
         </div>
         <button style={buttonStyle} type="button" onClick={this.getData}>
           Deal Hand!
@@ -50,5 +59,6 @@ var buttonStyle = {
   textDecoration: "none",
   display: "inline-block",
   fontSize: "16px",
-  borderRadius: "10px" // this rounds the edges
+  borderRadius: "10px", // this rounds the edges
+  marginBottom: "2em"
 };

@@ -42,6 +42,9 @@ export default class App extends React.Component {
             </div>
           </div>
           <div>
+            <p>
+              <strong>Tip:</strong> Click on header image to completely restart.
+            </p>
             <hr style={horizontalRuleStyle} />
           </div>
 
@@ -89,8 +92,8 @@ var navButtonContainerStyle = {
   // backgroundColor: "yellow",
   display: "flex",
   margin: "0 auto", // this magically centres a div in the centre by itself: http://jsfiddle.net/nacMP/24/
-  marginBottom: "50px",
-  marginTop: "50px",
+  marginBottom: "20px",
+  marginTop: "40px",
   width: "100%",
   maxWidth: "700px"
 };
