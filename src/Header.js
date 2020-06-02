@@ -1,5 +1,5 @@
 import React from "react";
-import Avalon1 from "../static/avalon1.jpg";
+import Avalon1 from "./static/avalon1.jpg";
 
 // this is how u make a responsive image: https://www.w3schools.com/howto/howto_css_image_responsive.asp
 // notice how u have width 100% which makes it nice on mobile
