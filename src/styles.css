@@ -2,3 +2,13 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+/* Using CSS media query to solve this pesky responsive div UI bug
+  https://stackoverflow.com/questions/45020506/align-two-divs-side-by-side-with-floating-responsive
+  https://stackoverflow.com/questions/14436800/two-divs-next-to-each-other-that-then-stack-with-responsive-change
+*/
+@media screen and (max-width: 700px) {
+  .navContainer {
+    flex-direction: column;
+  }
+}

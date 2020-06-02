@@ -29,7 +29,7 @@ export default class App extends React.Component {
           <Header />
           <h1>Welcome to Avalon ⚔️</h1>
           <h2>Select game option 👇🏻</h2>
-          <div style={navButtonContainerStyle}>
+          <div style={navButtonContainerStyle} class="navContainer">
             <div style={navButtonContainerFlexChildStyle}>
               <Link to="/justDeal" style={navButtonStyle}>
                 Just Deal Me a Hand
@@ -96,5 +96,7 @@ var navButtonContainerStyle = {
 };
 
 var navButtonContainerFlexChildStyle = {
-  flex: 1
+  padding: "1em",
+  flex: 1,
+  height: "2em" // without this for some reason the height of the div is the height of the anchor text...
 };
