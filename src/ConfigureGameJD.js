@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles.css";
 import { useForm } from "react-hook-form";
+import { withRouter } from "react-router-dom";
+import JustDealHand from "./JustDealHand";
+import { FormContext } from "./Store";
 
-export default function App() {
+function ConfigureGameJD(props) {
   const { register, handleSubmit } = useForm();
+
+  const [formData, setFormData] = useContext(FormContext);
 
   const onSubmit = data => {
     console.log(data);
+    setFormData(data);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Good Guys</h3>
+        <h3 style={headingStyle}>Good</h3>
         <label style={labelStyle}>Merlin: </label>
         <input
           type="number"
@@ -49,7 +55,7 @@ export default function App() {
           style={formInputStyle}
         />
         <br />
-        <h3>Bad Guys</h3>
+        <h3 style={headingStyle}>Evil</h3>
         <label style={labelStyle}>Assassin: </label>
         <input
           type="number"
@@ -112,15 +118,18 @@ export default function App() {
         <br />
         <input type="submit" style={buttonStyle} />
       </form>
+      <JustDealHand />
     </div>
   );
 }
 
+export default withRouter(ConfigureGameJD);
+
 var formInputStyle = {
-  width: "50%",
+  width: "40%",
   maxWidth: "300px",
-  padding: "8px 10px",
-  margin: "2px",
+  padding: "4px 9px",
+  margin: "0.5px",
   border: "1.5px solid light-grey",
   borderRadius: "10px",
   fontSize: "18px"
@@ -145,4 +154,9 @@ var buttonStyle = {
   borderRadius: "10px", // this rounds the edges
   marginBottom: "2em",
   marginTop: "1.5em"
+};
+
+var headingStyle = {
+  marginBottom: "0px",
+  fontSize: "22px"
 };

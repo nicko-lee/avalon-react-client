@@ -2,7 +2,8 @@ import React from "react";
 import Header from "./Header";
 import List from "./List";
 import JustDealHand from "./JustDealHand";
-import ConfigureGame from "./ConfigureGame";
+import ConfigureGameJD from "./ConfigureGameJD";
+import ConfigureGameDND from "./ConfigureGameDND";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,14 +14,12 @@ import {
 import "./styles.css";
 
 export default class App extends React.Component {
-  state = { showDeckList: false };
-
   componentDidMount() {}
 
   getData = () => {
     fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
       .then(response => response.json())
-      .then(data => this.setState({ data: data, showDeckList: true }));
+      .then(data => this.setState({ data: data }));
   };
 
   render() {
@@ -30,9 +29,9 @@ export default class App extends React.Component {
           <Header />
           <h1>Welcome to Avalon ⚔️</h1>
           <h2>Select game option 👇🏻</h2>
-          <div style={navButtonContainerStyle} class="navContainer">
+          <div style={navButtonContainerStyle} className="navContainer">
             <div style={navButtonContainerFlexChildStyle}>
-              <Link to="/configureGame" style={navButtonStyle}>
+              <Link to="/justDeal" style={navButtonStyle}>
                 Just Deal Me a Hand
               </Link>
             </div>
@@ -52,20 +51,10 @@ export default class App extends React.Component {
           {/* The section below changes dynamically based on react-router routes */}
           <Switch>
             <Route exact path="/justDeal">
-              <JustDealHand />
-
-              {/* This is a conditional render */}
-              {/* Referred to here: https://stackoverflow.com/questions/45303908/conditional-rendering-is-not-working-as-expected-in-reactjs */}
-              {this.state.showDeckList ? (
-                <div>
-                  <List data={this.state.data} />
-                </div>
-              ) : (
-                <div />
-              )}
+              <ConfigureGameJD />
             </Route>
-            <Route exact path="/configureGame">
-              <ConfigureGame />
+            <Route exact path="/dealAndDistribute">
+              <ConfigureGameDND />
             </Route>
           </Switch>
         </div>
