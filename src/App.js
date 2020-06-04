@@ -12,6 +12,7 @@ import {
   BrowserRouter
 } from "react-router-dom";
 import "./styles.css";
+import DealAndDistribute from "./DealAndDistribute";
 
 export default class App extends React.Component {
   componentDidMount() {}
@@ -55,6 +56,9 @@ export default class App extends React.Component {
             </Route>
             <Route exact path="/dealAndDistribute">
               <ConfigureGameDND />
+            </Route>
+            <Route exact path="/enterPlayers">
+              <DealAndDistribute />
             </Route>
           </Switch>
         </div>

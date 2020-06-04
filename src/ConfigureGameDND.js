@@ -1,16 +1,44 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
 import JustDealHand from "./JustDealHand";
+import { FormContext } from "./Store";
 
 function ConfigureGameDND(props) {
+  // setup to use React Hook Form lib
   const { register, handleSubmit } = useForm();
 
-  var formData;
+  // setup to use global store via Context API
+  const [formData, setFormData] = useContext(FormContext);
 
+  // var to store numPlayers array to pass it to next screen to dynamically generate form fields
+  var numPlayers = [];
+
+  // when user clicks to submit form
   const onSubmit = data => {
-    formData = data;
+    // save user input to global state store
+    setFormData(data);
+
+    // calculate number of players to display in next screen
+    var arr = Object.values(data); // this returns array with all values
+    var s = 0;
+    for (var i = 0; i < arr.length; i++) {
+      s += Number(arr[i]);
+    }
+
+    // generate player array so easy to map for rendering in next screen
+    for (i = 0; i < s; i++) {
+      var playerNo = i + 1;
+      numPlayers.push("Player " + playerNo);
+    }
+    console.log(numPlayers);
+
+    // route to next page
+    props.history.push({
+      pathname: "/enterPlayers",
+      state: { numPlayers: numPlayers }
+    });
   };
 
   return (
@@ -120,6 +148,7 @@ function ConfigureGameDND(props) {
   );
 }
 
+// without this withRouter() method you will not be able to use props.history.push
 export default withRouter(ConfigureGameDND);
 
 var formInputStyle = {

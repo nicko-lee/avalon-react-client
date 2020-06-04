@@ -6,12 +6,15 @@ import JustDealHand from "./JustDealHand";
 import { FormContext } from "./Store";
 
 function ConfigureGameJD(props) {
+  // setup to use React Hook Form lib
   const { register, handleSubmit } = useForm();
 
+  // setup to use global store via Context API
   const [formData, setFormData] = useContext(FormContext);
 
+  // when user clicks to submit form
   const onSubmit = data => {
-    console.log(data);
+    // save user input to global state store
     setFormData(data);
   };
 
@@ -123,6 +126,7 @@ function ConfigureGameJD(props) {
   );
 }
 
+// without withRouter() routing would not work with props.history.push
 export default withRouter(ConfigureGameJD);
 
 var formInputStyle = {
