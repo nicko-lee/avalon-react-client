@@ -10,17 +10,18 @@ function DealAndDistribute(props) {
   // setup to use global store via Context API
   const [formData, setFormData] = useContext(FormContext);
 
+  // easy handle to numPlayers
   var numPlayers = props.history.location.state.numPlayers;
 
   // simple way to emulate componentDidMount from a functional component
   // https://stackoverflow.com/questions/44506207/reactjs-lifecycle-method-inside-a-function-component
-  useEffect(() => {
-    console.log("hello from useEffect()", formData);
-    console.log(
-      "hello from useEffect()",
-      props.history.location.state.numPlayers
-    );
-  });
+  // useEffect(() => {
+  //   console.log("hello from useEffect()", formData);
+  //   console.log(
+  //     "hello from useEffect()",
+  //     props.history.location.state.numPlayers
+  //   );
+  // });
 
   // when user clicks to submit form
   const onSubmit = data => {
@@ -32,7 +33,6 @@ function DealAndDistribute(props) {
     <div>
       <p>{numPlayers}</p>
       {formData && <p>{JSON.stringify(formData)}</p>}
-      {/* <p>Number of players: {numPlayers}</p> */}
       <h3>Enter player email addresses to get cards dealt:</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {numPlayers.map(function(item, index) {
@@ -40,8 +40,12 @@ function DealAndDistribute(props) {
             <div key={index}>
               <input
                 name={item}
+                type="email"
                 placeholder={item}
-                ref={register}
+                ref={register({
+                  required: true,
+                  pattern: /\S+@\S+\.\S+/
+                })}
                 style={formInputStyle}
               />
             </div>

@@ -15,3 +15,12 @@ const onSubmit = data => {
     });
   }
 };
+
+// Note that pattern for email validation found from here
+// https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
+console.log(validateEmail("anystring@anystring.anystring"));

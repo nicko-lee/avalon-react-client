@@ -7,7 +7,7 @@ import { FormContext } from "./Store";
 
 function ConfigureGameJD(props) {
   // setup to use React Hook Form lib
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   // setup to use global store via Context API
   const [formData, setFormData] = useContext(FormContext);
@@ -27,12 +27,18 @@ function ConfigureGameJD(props) {
           type="number"
           placeholder="0"
           name="merlin"
-          ref={register}
+          ref={register({
+            required: true,
+            min: 1
+          })}
           min="0"
           max="3"
           step="1"
           style={formInputStyle}
         />
+        {errors.merlin && (
+          <p style={errorStyle}>At least one Merlin is required.</p>
+        )}
         <br />
         <label style={labelStyle}>Percival: </label>
         <input
@@ -51,12 +57,18 @@ function ConfigureGameJD(props) {
           type="number"
           placeholder="0"
           name="loyalServant"
-          ref={register}
+          ref={register({
+            required: true,
+            min: 1
+          })}
           min="1"
           max="10"
           step="1"
           style={formInputStyle}
         />
+        {errors.loyalServant && (
+          <p style={errorStyle}>At least one Loyal Servant is required.</p>
+        )}
         <br />
         <h3 style={headingStyle}>Evil</h3>
         <label style={labelStyle}>Assassin: </label>
@@ -76,12 +88,18 @@ function ConfigureGameJD(props) {
           type="number"
           placeholder="0"
           name="minion"
-          ref={register}
+          ref={register({
+            required: true,
+            min: 1
+          })}
           min="0"
           max="7"
           step="1"
           style={formInputStyle}
         />
+        {errors.minion && (
+          <p style={errorStyle}>At least one Minion is required.</p>
+        )}
         <br />
         <label style={labelStyle}>Morgana: </label>
         <input
@@ -163,4 +181,10 @@ var buttonStyle = {
 var headingStyle = {
   marginBottom: "0px",
   fontSize: "22px"
+};
+
+var errorStyle = {
+  marginBottom: "0px",
+  color: "#508AA8",
+  fontStyle: "italic"
 };
