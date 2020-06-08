@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import "./styles.css";
 import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
-import JustDealHand from "./JustDealHand";
 import { FormContext } from "./Store";
 
 function ConfigureGameDND(props) {

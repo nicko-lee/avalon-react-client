@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import List from "./List";
-import JustDealHand from "./JustDealHand";
+import Dealt from "./Dealt";
 import ConfigureGameJD from "./ConfigureGameJD";
 import ConfigureGameDND from "./ConfigureGameDND";
 import {
@@ -59,6 +58,9 @@ export default class App extends React.Component {
             </Route>
             <Route exact path="/enterPlayers">
               <DealAndDistribute />
+            </Route>
+            <Route exact path="/dealt">
+              <Dealt />
             </Route>
           </Switch>
         </div>

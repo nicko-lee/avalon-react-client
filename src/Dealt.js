@@ -1,25 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import List from "./List";
+import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { FormContext } from "./Store";
 
-function JustDealHand() {
+function Dealt() {
   // local state
   const [apiResp, setApiResp] = useState();
 
   // accessing global state
-  const [formData, setForm] = useContext(FormContext);
+  const [formData] = useContext(FormContext);
+
+  // a way to use componentDidMount from functional React component
+  useEffect(() => {
+    getData();
+  }, []); // if not for that empty array as second arg this will loop nonstop
+  // https://www.andreasreiterer.at/react-useeffect-hook-loop/
 
   const getData = () => {
-    fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
-      .then(response => response.json())
-      .then(data => setApiResp(data));
+    console.log("Ran from getData in Dealt.js, formData: ", formData);
+
+    axios
+      .post("https://wqhnq.sse.codesandbox.io/dealCards", formData)
+      .then(response => {
+        console.log(
+          "Ran from axios POST call in Dealt.js, resp.data: ",
+          response.data
+        );
+        setApiResp(response.data);
+      })
+      .catch(error => {
+        console.error("Error on POST:", error, error.response);
+      });
   };
 
   return (
     <div>
       <div style={jsonStyle}>
-        {formData && <p>{JSON.stringify(formData)}</p>}
+        {/* {formData && <p>{JSON.stringify(formData)}</p>} */}
         {apiResp && <h3>JSON</h3>}
         <p>Deck: {JSON.stringify(apiResp)}</p>
         {/* this is a special conditional render that does nothing if condition is not met
@@ -29,16 +47,17 @@ function JustDealHand() {
             This provides an error if null is passed down and <List /> doesn't know what to do
             with it. Else it will do nothing */}
         {apiResp && <List data={apiResp} />}
-        {/* <p>{this.props.location.state.hello}</p> */}
       </div>
-      <button style={buttonStyle} type="button" onClick={getData}>
-        Deal Hand!
-      </button>
+      <a href="/">
+        <button style={buttonStyle} type="button">
+          Start Again
+        </button>
+      </a>
     </div>
   );
 }
 
-export default withRouter(JustDealHand);
+export default withRouter(Dealt);
 
 // wordWrap makes the JSON text responsive on mobile: https://stackoverflow.com/questions/7641195/how-to-limit-div-width
 // maxWidth kept stuffing things up but when u added marginLeft and right to auto it did the trick to centre the div

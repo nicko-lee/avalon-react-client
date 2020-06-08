@@ -1,13 +1,42 @@
 import React, { useContext } from "react";
 import "./styles.css";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import { withRouter } from "react-router-dom";
-import JustDealHand from "./JustDealHand";
 import { FormContext } from "./Store";
+
+const FormSchema = yup.object().shape({
+  merlin: yup
+    .number()
+    .min(1)
+    .required(),
+  percival: yup.number(),
+  loyalServant: yup
+    .number()
+    .min(1)
+    .required(),
+  assassin: yup.number(),
+  minion: yup
+    .number()
+    .min(1)
+    .required(),
+  morgana: yup.number(),
+  mordred: yup.number(),
+  oberon: yup.number()
+});
 
 function ConfigureGameJD(props) {
   // setup to use React Hook Form lib
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: FormSchema,
+    defaultValues: {
+      percival: 0,
+      assassin: 0,
+      morgana: 0,
+      mordred: 0,
+      oberon: 0
+    }
+  });
 
   // setup to use global store via Context API
   const [formData, setFormData] = useContext(FormContext);
@@ -16,6 +45,11 @@ function ConfigureGameJD(props) {
   const onSubmit = data => {
     // save user input to global state store
     setFormData(data);
+
+    // route to next page
+    props.history.push({
+      pathname: "/dealt"
+    });
   };
 
   return (
@@ -25,8 +59,8 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Merlin: </label>
         <input
           type="number"
-          placeholder="0"
           name="merlin"
+          placeholder="0"
           ref={register({
             required: true,
             min: 1
@@ -43,7 +77,6 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Percival: </label>
         <input
           type="number"
-          placeholder="0"
           name="percival"
           ref={register}
           min="0"
@@ -55,8 +88,8 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Loyal Servant: </label>
         <input
           type="number"
-          placeholder="0"
           name="loyalServant"
+          placeholder="0"
           ref={register({
             required: true,
             min: 1
@@ -74,7 +107,6 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Assassin: </label>
         <input
           type="number"
-          placeholder="0"
           name="assassin"
           ref={register}
           min="0"
@@ -86,8 +118,8 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Minion: </label>
         <input
           type="number"
-          placeholder="0"
           name="minion"
+          placeholder="0"
           ref={register({
             required: true,
             min: 1
@@ -104,7 +136,6 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Morgana: </label>
         <input
           type="number"
-          placeholder="0"
           name="morgana"
           ref={register}
           min="0"
@@ -116,7 +147,6 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Mordred: </label>
         <input
           type="number"
-          placeholder="0"
           name="mordred"
           ref={register}
           min="0"
@@ -128,7 +158,6 @@ function ConfigureGameJD(props) {
         <label style={labelStyle}>Oberon: </label>
         <input
           type="number"
-          placeholder="0"
           name="oberon"
           ref={register}
           min="0"
@@ -139,7 +168,6 @@ function ConfigureGameJD(props) {
         <br />
         <input type="submit" style={buttonStyle} />
       </form>
-      <JustDealHand />
     </div>
   );
 }

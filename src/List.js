@@ -6,21 +6,9 @@ class List extends React.Component {
     data: PropTypes.object.isRequired
   };
 
-  // formattedData = formatData(this.props.data);
-
-  // formatData = data => {
-  //   // get all object keys and iterate over them
-  //   Object.keys(data).forEach((keyName, keyIndex) => {
-  //     keyIndex++;
-  //     newK = "Player " + keyIndex;
-  //     // assign object property based on old property value
-  //     data[newK[ele]] = data[ele];
-  //     // update name property
-  //     data[newK[ele]].name = newK[ele];
-  //     // delete old object property
-  //     delete data[ele];
-  //   });
-  // };
+  componentDidMount() {
+    console.log("ran from CDM in List.js: ", this.props.data);
+  }
 
   // How to map thru an object. Referred to here
   // https://stackoverflow.com/questions/40803828/reactjs-map-through-object
@@ -29,10 +17,10 @@ class List extends React.Component {
     return (
       <div style={listContainerStyle}>
         <h3>Formatted</h3>
-        {Object.keys(this.props.data).map((keyName, keyIndex) => (
+        {Object.keys(this.props.data.dealt).map((keyName, keyIndex) => (
           <li key={keyIndex} style={listStyle}>
             <span>
-              Player {keyIndex + 1}: {this.props.data[keyName]}
+              Player {keyIndex + 1}: {this.props.data.dealt[keyName]}
             </span>
           </li>
         ))}

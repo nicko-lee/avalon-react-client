@@ -24,3 +24,21 @@ function validateEmail(email) {
 }
 
 console.log(validateEmail("anystring@anystring.anystring"));
+
+// formattedData = formatData(this.props.data);
+
+// formatData = data => {
+//   // get all object keys and iterate over them
+//   Object.keys(data).forEach((keyName, keyIndex) => {
+//     keyIndex++;
+//     newK = "Player " + keyIndex;
+//     // assign object property based on old property value
+//     data[newK[ele]] = data[ele];
+//     // update name property
+//     data[newK[ele]].name = newK[ele];
+//     // delete old object property
+//     delete data[ele];
+//   });
+// };
+
+// {/* <p>{this.props.location.state.hello}</p> */}
