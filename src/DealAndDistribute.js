@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { FormContext } from "./Store";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
 
@@ -8,25 +9,36 @@ function DealAndDistribute(props) {
   const { register, handleSubmit } = useForm();
 
   // setup to use global store via Context API
-  const [formData, setFormData] = useContext(FormContext);
+  const [formData] = useContext(FormContext);
 
   // easy handle to numPlayers
   var numPlayers = props.history.location.state.numPlayers;
-
-  // simple way to emulate componentDidMount from a functional component
-  // https://stackoverflow.com/questions/44506207/reactjs-lifecycle-method-inside-a-function-component
-  // useEffect(() => {
-  //   console.log("hello from useEffect()", formData);
-  //   console.log(
-  //     "hello from useEffect()",
-  //     props.history.location.state.numPlayers
-  //   );
-  // });
 
   // when user clicks to submit form
   const onSubmit = data => {
     // save user input to global state store
     console.log("data: ", data);
+
+    // POST req to trigger dealt cards and emails to players
+    axios
+      .post("https://wqhnq.sse.codesandbox.io/api/dealAndDistribute", {
+        formData: formData,
+        emails: data
+      })
+      .then(response => {
+        console.log(
+          "Ran from axios POST call in DealAndDistribute.js, resp.data: ",
+          response.data
+        );
+      })
+      .catch(error => {
+        console.error("Error on POST:", error, error.response);
+      });
+
+    // route to next page
+    props.history.push({
+      pathname: "/cardsDealt"
+    });
   };
 
   return (

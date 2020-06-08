@@ -1,15 +1,10 @@
 import React from "react";
 import Header from "./Header";
 import Dealt from "./Dealt";
+import Done from "./Done";
 import ConfigureGameJD from "./ConfigureGameJD";
 import ConfigureGameDND from "./ConfigureGameDND";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./styles.css";
 import DealAndDistribute from "./DealAndDistribute";
 
@@ -61,6 +56,9 @@ export default class App extends React.Component {
             </Route>
             <Route exact path="/dealt">
               <Dealt />
+            </Route>
+            <Route exact path="/cardsDealt">
+              <Done />
             </Route>
           </Switch>
         </div>

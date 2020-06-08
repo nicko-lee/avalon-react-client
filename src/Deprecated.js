@@ -1,20 +1,20 @@
-const onSubmit = data => {
-  // https://gist.github.com/primaryobjects/aacf6fa49823afb2f6ff065790a5b402
-  // slow things down with this popup box and force user to confirm game config
-  if (
-    window.confirm(
-      "Please confirm you are happy with game config or else hit Cancel button to review again."
-    )
-  ) {
-    console.log(typeof data);
-    // so tricky u cannot pass an object here as state
-    // https://github.com/ReactTraining/history/issues/621
-    props.history.push({
-      pathname: "/justDeal",
-      state: { hello: "hello" }
-    });
-  }
-};
+// const onSubmit = data => {
+//   // https://gist.github.com/primaryobjects/aacf6fa49823afb2f6ff065790a5b402
+//   // slow things down with this popup box and force user to confirm game config
+//   if (
+//     window.confirm(
+//       "Please confirm you are happy with game config or else hit Cancel button to review again."
+//     )
+//   ) {
+//     console.log(typeof data);
+//     // so tricky u cannot pass an object here as state
+//     // https://github.com/ReactTraining/history/issues/621
+//     props.history.push({
+//       pathname: "/justDeal",
+//       state: { hello: "hello" }
+//     });
+//   }
+// };
 
 // Note that pattern for email validation found from here
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
@@ -42,3 +42,13 @@ console.log(validateEmail("anystring@anystring.anystring"));
 // };
 
 // {/* <p>{this.props.location.state.hello}</p> */}
+
+// simple way to emulate componentDidMount from a functional component
+// https://stackoverflow.com/questions/44506207/reactjs-lifecycle-method-inside-a-function-component
+// useEffect(() => {
+//   console.log("hello from useEffect()", formData);
+//   console.log(
+//     "hello from useEffect()",
+//     props.history.location.state.numPlayers
+//   );
+// });

@@ -39,7 +39,7 @@ function ConfigureGameJD(props) {
   });
 
   // setup to use global store via Context API
-  const [formData, setFormData] = useContext(FormContext);
+  const [, setFormData] = useContext(FormContext);
 
   // when user clicks to submit form
   const onSubmit = data => {

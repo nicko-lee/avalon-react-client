@@ -21,7 +21,7 @@ function Dealt() {
     console.log("Ran from getData in Dealt.js, formData: ", formData);
 
     axios
-      .post("https://wqhnq.sse.codesandbox.io/dealCards", formData)
+      .post("https://wqhnq.sse.codesandbox.io/api/dealCards", formData)
       .then(response => {
         console.log(
           "Ran from axios POST call in Dealt.js, resp.data: ",

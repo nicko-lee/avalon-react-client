@@ -1,15 +1,45 @@
 import React, { useContext } from "react";
 import "./styles.css";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import { withRouter } from "react-router-dom";
 import { FormContext } from "./Store";
 
+const FormSchema = yup.object().shape({
+  merlin: yup
+    .number()
+    .min(1)
+    .required(),
+  percival: yup.number(),
+  loyalServant: yup
+    .number()
+    .min(1)
+    .required(),
+  assassin: yup.number(),
+  minion: yup
+    .number()
+    .min(1)
+    .required(),
+  morgana: yup.number(),
+  mordred: yup.number(),
+  oberon: yup.number()
+});
+
 function ConfigureGameDND(props) {
   // setup to use React Hook Form lib
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: FormSchema,
+    defaultValues: {
+      percival: 0,
+      assassin: 0,
+      morgana: 0,
+      mordred: 0,
+      oberon: 0
+    }
+  });
 
   // setup to use global store via Context API
-  const [formData, setFormData] = useContext(FormContext);
+  const [, setFormData] = useContext(FormContext);
 
   // var to store numPlayers array to pass it to next screen to dynamically generate form fields
   var numPlayers = [];
@@ -55,11 +85,13 @@ function ConfigureGameDND(props) {
           step="1"
           style={formInputStyle}
         />
+        {errors.merlin && (
+          <p style={errorStyle}>At least one Merlin is required.</p>
+        )}
         <br />
         <label style={labelStyle}>Percival: </label>
         <input
           type="number"
-          placeholder="0"
           name="percival"
           ref={register}
           min="0"
@@ -79,12 +111,14 @@ function ConfigureGameDND(props) {
           step="1"
           style={formInputStyle}
         />
+        {errors.loyalServant && (
+          <p style={errorStyle}>At least one Loyal Servant is required.</p>
+        )}
         <br />
         <h3 style={headingStyle}>Evil</h3>
         <label style={labelStyle}>Assassin: </label>
         <input
           type="number"
-          placeholder="0"
           name="assassin"
           ref={register}
           min="0"
@@ -104,11 +138,13 @@ function ConfigureGameDND(props) {
           step="1"
           style={formInputStyle}
         />
+        {errors.minion && (
+          <p style={errorStyle}>At least one Minion is required.</p>
+        )}
         <br />
         <label style={labelStyle}>Morgana: </label>
         <input
           type="number"
-          placeholder="0"
           name="morgana"
           ref={register}
           min="0"
@@ -120,7 +156,6 @@ function ConfigureGameDND(props) {
         <label style={labelStyle}>Mordred: </label>
         <input
           type="number"
-          placeholder="0"
           name="mordred"
           ref={register}
           min="0"
@@ -132,7 +167,6 @@ function ConfigureGameDND(props) {
         <label style={labelStyle}>Oberon: </label>
         <input
           type="number"
-          placeholder="0"
           name="oberon"
           ref={register}
           min="0"
@@ -184,4 +218,10 @@ var buttonStyle = {
 var headingStyle = {
   marginBottom: "0px",
   fontSize: "22px"
+};
+
+var errorStyle = {
+  marginBottom: "0px",
+  color: "#508AA8",
+  fontStyle: "italic"
 };
