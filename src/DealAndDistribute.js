@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 function DealAndDistribute(props) {
   // setup to use React Hook Form lib
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   // setup to use global store via Context API
   const [formData] = useContext(FormContext);
@@ -63,6 +63,22 @@ function DealAndDistribute(props) {
             </div>
           );
         })}
+        <label style={labelStyle}>Enter password in order to submit: </label>
+        <br />
+        <input
+          type="password"
+          placeholder="Enter password"
+          name="password"
+          ref={register({
+            required: true
+          })}
+          min="0"
+          max="3"
+          step="1"
+          style={formInputStyle}
+        />
+        {errors.password && <p style={errorStyle}>Password is required.</p>}
+        <br />
         <input type="submit" style={buttonStyle} />
       </form>
     </div>
@@ -94,4 +110,14 @@ var buttonStyle = {
   borderRadius: "10px", // this rounds the edges
   marginBottom: "2em",
   marginTop: "1.5em"
+};
+
+var labelStyle = {
+  display: "block"
+};
+
+var errorStyle = {
+  marginBottom: "0px",
+  color: "#508AA8",
+  fontStyle: "italic"
 };

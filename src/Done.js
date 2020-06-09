@@ -8,6 +8,10 @@ function Done() {
         The die has been cast. Your hand has been dealt. Please check your
         email!
       </p>
+      <p>
+        If you did not receive an email you may have entered the wrong password.
+        Please try again.
+      </p>
       <a style={buttonStyle} href="/">
         Start Again
       </a>
