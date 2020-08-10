@@ -11,11 +11,12 @@ import DealAndDistribute from "./DealAndDistribute";
 export default class App extends React.Component {
   componentDidMount() {}
 
-  getData = () => {
-    fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
-      .then(response => response.json())
-      .then(data => this.setState({ data: data }));
-  };
+  // doesn't actually do anything but test the server is up
+  // getData = () => {
+  //   fetch("https://avalon-js-2.ts.r.appspot.com/dealCards")
+  //     .then(response => response.json())
+  //     .then(data => this.setState({ data: data }));
+  // };
 
   render() {
     return (

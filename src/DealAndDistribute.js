@@ -21,7 +21,7 @@ function DealAndDistribute(props) {
 
     // POST req to trigger dealt cards and emails to players
     axios
-      .post("https://avalon-js-3.ts.r.appspot.com/api/dealAndDistribute", {
+      .post(process.env.BASE_URL + "/api/dealAndDistribute", {
         formData: formData,
         emails: data
       })
